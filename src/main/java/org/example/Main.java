@@ -1,16 +1,26 @@
 package org.example;
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 
 public class Main {
 
-    Expense expense = new Expense();
+    public static List<Expense> expenses = new ArrayList<>();
 
-    ObjectMapper mapper = new ObjectMapper();
+    public static ObjectMapper mapper = new ObjectMapper();
 
     public static Scanner sc = new Scanner(System.in);
 
+    public static final String DATA_FILE = "expenses.json";
+
     public static void main(String[] args) {
+
+        mapper.enable(SerializationFeature.INDENT_OUTPUT);
+
         int option = 0;
 
         do {
@@ -58,12 +68,17 @@ public class Main {
 
     public static void addExpense() {
         System.out.print("--description: ");
-        String description = sc.next();
+        String description = sc.nextLine();
         System.out.print("--amount: ");
         double amount = sc.nextDouble();
 
         if(!description.isEmpty() && amount > 0) {
+            Expense expense = new Expense(description, amount);
+            expenses.add(expense);
+            saveExpenses();
             System.out.println("Expense successfully created!!!");
+            System.out.println("ID: " + expense.getId());
+            System.out.println("Date: " + expense.getDate());
             System.out.println("Description: " + description);
             System.out.println("Amount: $" + String.format("%.2f", amount));
         }
@@ -71,6 +86,16 @@ public class Main {
         System.out.print("\nPress enter to continue...");
         sc.nextLine();
         sc.nextLine();
+    }
+
+    private static void saveExpenses() {
+        try {
+            mapper.writeValue(new File(DATA_FILE), expenses);
+            System.out.println("Expense saved!!!");
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+        }
+
     }
 
 }
