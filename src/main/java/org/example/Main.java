@@ -2,9 +2,9 @@ package org.example;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
-
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
@@ -37,21 +37,28 @@ public class Main {
                     addExpense();
                     break;
                 case 2:
+                    sc.nextLine();
                     System.out.println("Update an expense: ");
                     break;
                 case 3:
+                    sc.nextLine();
                     System.out.println("Delete an expense: ");
                     break;
                 case 4:
+                    sc.nextLine();
                     System.out.println("View all expenses: ");
+                    viewAllExpenses();
                     break;
                 case 5:
+                    sc.nextLine();
                     System.out.println("View summary of all expenses: ");
                     break;
                 case 6:
+                    sc.nextLine();
                     System.out.println("View summary of expense for an especific month (of year): ");
                     break;
                 case 7:
+                    sc.nextLine();
                     System.out.println("Quitting...");
                     saveExpenses();
                     break;
@@ -98,14 +105,38 @@ public class Main {
         sc.nextLine();
     }
 
+    public static void viewAllExpenses() {
+        try {
+            Expense[] expensesArray = mapper.readValue(new File(DATA_FILE), Expense[].class);
+
+            Arrays.sort(expensesArray, (e1, e2) -> Integer.compare(e2.getId(), e1.getId()));
+
+            System.out.println("--- Expenses ---");
+
+            for (Expense expense : expensesArray) {
+                System.out.println("\nID:" + expense.getId()
+                        + " Date: " + expense.getDate()
+                        + " Description: " + expense.getDescription()
+                        + " Amount:$"
+                        + String.format("%.2f", expense.getAmount()));
+            }
+
+            System.out.print("\nPress enter to continue...");
+            sc.nextLine();
+            sc.nextLine();
+
+        } catch (Exception e) {
+            System.err.println(e.getMessage());;
+        }
+    }
+
     private static void saveExpenses() {
         try {
             mapper.writeValue(new File(DATA_FILE), expenses);
-            System.out.println("Expense saved!!!");
+            // System.out.println("Expense saved!!!");
         } catch (Exception e) {
             System.err.println(e.getMessage());
         }
-
     }
 
     @SuppressWarnings("unchecked")
