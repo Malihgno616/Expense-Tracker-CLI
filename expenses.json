@@ -1,4 +1,9 @@
 [ {
+  "id" : 13,
+  "date" : "2026-09-08",
+  "description" : "Coca cola da silva",
+  "amount" : 110.0
+}, {
   "id" : 12,
   "date" : "2026-09-01",
   "description" : "Dinner",
@@ -56,6 +61,6 @@
 }, {
   "id" : 1,
   "date" : "2026-08-27",
-  "description" : "Dinner",
-  "amount" : 11.0
+  "description" : "DiNER",
+  "amount" : 999.0
 } ]

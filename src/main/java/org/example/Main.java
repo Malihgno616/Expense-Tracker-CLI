@@ -41,6 +41,7 @@ public class Main {
                 case 2:
                     sc.nextLine();
                     System.out.println("Update an expense: ");
+                    updateExpense();
                     break;
                 case 3:
                     sc.nextLine();
@@ -130,6 +131,98 @@ public class Main {
 
         } catch (Exception e) {
             System.err.println(e.getMessage());;
+        }
+    }
+
+    public static void updateExpense() {
+        try {
+            loadExpenses();
+
+            expenses.sort((e1, e2) -> Integer.compare(e2.getId(), e1.getId()));
+
+            System.out.println("--- Expenses ---");
+
+            if (expenses.isEmpty()) {
+                System.out.println("No expenses to update!");
+                System.out.print("\nPress enter to continue...");
+                sc.nextLine();
+                return;
+            }
+
+            for (Expense expense : expenses) {
+                System.out.println("\nID:" + expense.getId()
+                        + " Date: " + expense.getDate()
+                        + " Description: " + expense.getDescription()
+                        + " Amount:$"
+                        + String.format("%.2f", expense.getAmount()));
+            }
+
+            System.out.print("\nSelect an expense to Update (id): ");
+            int idSelected = sc.nextInt();
+            sc.nextLine();
+
+            Expense expenseToUpdate = null;
+            for (Expense expense : expenses) {
+                if (expense.getId() == idSelected) {
+                    expenseToUpdate = expense;
+                    break;
+                }
+            }
+
+            if (expenseToUpdate == null) {
+                System.out.println("Expense with ID " + idSelected + " not found!");
+                System.out.print("\nPress enter to continue...");
+                sc.nextLine();
+                return;
+            }
+
+            System.out.println("\nSelected expense:");
+            System.out.println("ID: " + expenseToUpdate.getId()
+                    + " Date: " + expenseToUpdate.getDate()
+                    + " Description: " + expenseToUpdate.getDescription()
+                    + " Amount: $" + String.format("%.2f", expenseToUpdate.getAmount()));
+
+            System.out.print("\nAre you sure you want to update expense #" + idSelected + "? (y/n): ");
+            String confirmation = sc.nextLine();
+
+            if (!confirmation.equalsIgnoreCase("y")) {
+                System.out.println("Update cancelled.");
+                System.out.print("\nPress enter to continue...");
+                sc.nextLine();
+                return;
+            }
+
+            System.out.println("\nEnter new values (or press enter/0 to keep current):");
+
+            System.out.print("--description [" + expenseToUpdate.getDescription() + "]: ");
+            String description = sc.nextLine();
+            if (!description.trim().isEmpty()) {
+                expenseToUpdate.setDescription(description);
+            }
+
+            System.out.print("--amount [$" + String.format("%.2f", expenseToUpdate.getAmount()) + "]: ");
+            double amount = sc.nextDouble();
+            sc.nextLine();
+
+            if (amount > 0) {
+                expenseToUpdate.setAmount(amount);
+            }
+
+            saveExpenses();
+
+            System.out.println("\nExpense #" + idSelected + " updated successfully!");
+            System.out.println("New values:");
+            System.out.println("Date: " + expenseToUpdate.getDate());
+            System.out.println("Description: " + expenseToUpdate.getDescription());
+            System.out.println("Amount: $" + String.format("%.2f", expenseToUpdate.getAmount()));
+
+            System.out.print("\nPress enter to continue...");
+            sc.nextLine();
+
+        } catch (Exception e) {
+            System.out.println("Error updating expense: " + e.getMessage());
+            System.out.print("\nPress enter to continue...");
+            sc.nextLine();
         }
     }
 
