@@ -1,52 +1,7 @@
 [ {
-  "id" : 1,
-  "date" : "2026-08-27",
-  "description" : "Dinner",
-  "amount" : 11.0
-}, {
-  "id" : 2,
-  "date" : "2026-08-27",
-  "description" : "dinner",
-  "amount" : 123.0
-}, {
-  "id" : 3,
-  "date" : "2026-08-27",
-  "description" : "lunch",
-  "amount" : 22.0
-}, {
-  "id" : 4,
-  "date" : "2026-08-27",
-  "description" : "diiner",
-  "amount" : 33.0
-}, {
-  "id" : 5,
-  "date" : "2026-08-27",
-  "description" : "dinner",
-  "amount" : 222.0
-}, {
-  "id" : 6,
-  "date" : "2026-08-27",
-  "description" : "lunch",
-  "amount" : 33.0
-}, {
-  "id" : 7,
-  "date" : "2026-08-27",
-  "description" : "dinner",
-  "amount" : 33.0
-}, {
-  "id" : 8,
+  "id" : 12,
   "date" : "2026-09-01",
   "description" : "Dinner",
-  "amount" : 90.0
-}, {
-  "id" : 9,
-  "date" : "2026-09-01",
-  "description" : "dINNER",
-  "amount" : 10.0
-}, {
-  "id" : 10,
-  "date" : "2026-09-01",
-  "description" : "dinner",
   "amount" : 10.0
 }, {
   "id" : 11,
@@ -54,13 +9,53 @@
   "description" : "Dinner",
   "amount" : 190.0
 }, {
-  "id" : 12,
+  "id" : 10,
   "date" : "2026-09-01",
-  "description" : "Dinner",
+  "description" : "dinner",
   "amount" : 10.0
 }, {
-  "id" : 13,
+  "id" : 9,
   "date" : "2026-09-01",
-  "description" : "GTA VI",
-  "amount" : 999.0
+  "description" : "dINNER",
+  "amount" : 10.0
+}, {
+  "id" : 8,
+  "date" : "2026-09-01",
+  "description" : "Dinner",
+  "amount" : 90.0
+}, {
+  "id" : 7,
+  "date" : "2026-08-27",
+  "description" : "dinner",
+  "amount" : 33.0
+}, {
+  "id" : 6,
+  "date" : "2026-08-27",
+  "description" : "lunch",
+  "amount" : 33.0
+}, {
+  "id" : 5,
+  "date" : "2026-08-27",
+  "description" : "dinner",
+  "amount" : 222.0
+}, {
+  "id" : 4,
+  "date" : "2026-08-27",
+  "description" : "diiner",
+  "amount" : 33.0
+}, {
+  "id" : 3,
+  "date" : "2026-08-27",
+  "description" : "lunch",
+  "amount" : 22.0
+}, {
+  "id" : 2,
+  "date" : "2026-08-27",
+  "description" : "dinner",
+  "amount" : 123.0
+}, {
+  "id" : 1,
+  "date" : "2026-08-27",
+  "description" : "Dinner",
+  "amount" : 11.0
 } ]

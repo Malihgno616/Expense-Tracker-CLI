@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
+import java.util.stream.Collectors;
+
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
@@ -43,6 +45,7 @@ public class Main {
                 case 3:
                     sc.nextLine();
                     System.out.println("Delete an expense: ");
+                    deleteExpense();
                     break;
                 case 4:
                     sc.nextLine();
@@ -127,6 +130,63 @@ public class Main {
 
         } catch (Exception e) {
             System.err.println(e.getMessage());;
+        }
+    }
+
+    public static void deleteExpense() {
+        try {
+            loadExpenses();
+
+            expenses.sort((e1, e2) -> Integer.compare(e2.getId(), e1.getId()));
+
+            System.out.println("--- Expenses ---");
+
+            if (expenses.isEmpty()) {
+                System.out.println("No expenses to delete!");
+                System.out.print("\nPress enter to continue...");
+                sc.nextLine();
+                return;
+            }
+
+            for (Expense expense : expenses) {
+                System.out.println("\nID:" + expense.getId()
+                        + " Date: " + expense.getDate()
+                        + " Description: " + expense.getDescription()
+                        + " Amount:$"
+                        + String.format("%.2f", expense.getAmount()));
+            }
+
+            System.out.print("\nSelect an expense ID to delete: ");
+            int idSelected = sc.nextInt();
+            sc.nextLine();
+
+            System.out.print("Are you sure you want to delete expense #" + idSelected + "? (y/n): ");
+            String confirmation = sc.nextLine();
+
+            if (!confirmation.equalsIgnoreCase("y")) {
+                System.out.println("Deletion cancelled.");
+                System.out.print("\nPress enter to continue...");
+                sc.nextLine();
+                return;
+            }
+
+            List<Expense> updatedList = expenses.stream()
+                    .filter(expense -> expense.getId() != idSelected)
+                    .collect(Collectors.toList());
+
+            if (updatedList.size() == expenses.size()) {
+                System.out.println("Expense with ID " + idSelected + " not found!");
+            } else {
+                expenses = updatedList;
+                saveExpenses();
+                System.out.println("Expense with ID " + idSelected + " deleted successfully!");
+            }
+
+            System.out.print("\nPress enter to continue...");
+            sc.nextLine();
+
+        } catch (Exception e) {
+            System.err.println("Error deleting expense: " + e.getMessage());
         }
     }
 
