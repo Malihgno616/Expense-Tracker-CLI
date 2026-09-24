@@ -56,10 +56,12 @@ public class Main {
                 case 5:
                     sc.nextLine();
                     System.out.println("View summary of all expenses: ");
+                    summaryExpenses();
                     break;
                 case 6:
                     sc.nextLine();
                     System.out.println("View summary of expense for an especific month (of year): ");
+                    summaryMonthOrYear();
                     break;
                 case 7:
                     sc.nextLine();
@@ -223,6 +225,83 @@ public class Main {
             System.out.println("Error updating expense: " + e.getMessage());
             System.out.print("\nPress enter to continue...");
             sc.nextLine();
+        }
+    }
+
+    public static void summaryExpenses() {
+        try {
+            loadExpenses();
+
+            expenses.sort((e1, e2) -> Integer.compare(e2.getId(), e1.getId()));
+
+            System.out.println("--- Summary of all Expenses ---");
+
+            double totalExpenses = 0.00;
+
+            for (Expense expense : expenses) {
+                System.out.println("\nID:" + expense.getId()
+                        + " Date: " + expense.getDate()
+                        + " Description: " + expense.getDescription()
+                        + " Amount:$"
+                        + String.format("%.2f", expense.getAmount()));
+
+                totalExpenses += expense.getAmount();
+
+            }
+
+            System.out.println("-----------------");
+            System.out.println("Total expenses: $"+totalExpenses);
+
+            System.out.print("\nPress enter to continue...");
+            sc.nextLine();
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public static void summaryMonthOrYear() {
+        try {
+            System.out.print("--- Type year (xxxx) or with month (xxxx-xx): ");
+            String searchFilter = sc.nextLine().trim();
+
+            double totalPeriod = 0.00;
+            boolean found = false;
+
+            if(searchFilter.isEmpty()) {
+                System.out.println("Invalid input. Type again...");
+                return;
+            }
+
+            System.out.println("Summary typed: " + searchFilter);
+
+            for (Expense expense : expenses) {
+                if(expense.getDate().startsWith(searchFilter)) {
+                    System.out.println("\nID:" + expense.getId()
+                            + " Date: " + expense.getDate()
+                            + " Description: " + expense.getDescription()
+                            + " Amount:$"
+                            + String.format("%.2f", expense.getAmount()));
+
+                    totalPeriod += expense.getAmount();
+                    found = true;
+                }
+
+            }
+
+            if(!found) {
+                System.out.println("Expenses not found...");
+            } else {
+                System.out.println("-------");
+                System.out.println("Period total: (" + searchFilter + "): $" + totalPeriod);
+                System.out.println("-------");
+
+                System.out.println("\nPress enter to continue...");
+                sc.nextLine();
+            }
+
+        } catch (Exception e) {
+            System.out.println("Error: " + e.getMessage());
         }
     }
 

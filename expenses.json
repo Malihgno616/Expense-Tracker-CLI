@@ -1,4 +1,9 @@
 [ {
+  "id" : 14,
+  "date" : "2026-09-08",
+  "description" : "Lunch",
+  "amount" : 90.0
+}, {
   "id" : 13,
   "date" : "2026-09-08",
   "description" : "Coca cola da silva",
